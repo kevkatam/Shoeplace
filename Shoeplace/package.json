@@ -1,14 +1,14 @@
 {
   "name": "shoeplace",
   "version": "1.0.0",
-  "description": "",
+  "description": "A web application for Shoeplace, featuring Tailwind CSS.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch:css": "npx tailwindcss -i ./static/src/styles.css -o ./static/dist/styles.css --watch"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["tailwindcss", "shoeplace", "web", "css"],
+  "author": "Kevin Kipruto",
   "license": "ISC",
   "dependencies": {
     "autoprefixer": "^10.4.20",
@@ -16,3 +16,4 @@
     "tailwindcss": "^3.4.10"
   }
 }
+

@@ -80,8 +80,11 @@ WSGI_APPLICATION = 'Shoeplace.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        #'NAME': BASE_DIR / 'db.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': 'shoedb',
+        'USER': 'kevin',
+        'PASSWORD': 'mysiteuser',
+        'HOST': 'localhost',
+        'PORT': 5432,
     }
 }
 
