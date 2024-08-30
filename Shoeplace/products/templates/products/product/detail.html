@@ -14,9 +14,41 @@
     <p>{{ product.description }}</p>
     <p class="text-indigo-600">KES {{ product.price }}</p>
 
-    <form>
-      <button class="bg-indigo-600 text-white px-4 py-2 rounded">Add to cart</button>
+    <form action="{% url 'cart:cart_add' product.id %}" method="post" id="add-to-cart-form">
+      {% csrf_token %}
+      <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded">Add to cart</button>
+    <p id="message"></p>
     </form>
   </div>
 </div>
+
+<script>
+  document.getElementById('add-to-cart-form').addEventListener("submit", function(event){
+    event.preventDefault();
+    
+    const form = event.target;
+    const url = form.action;
+    const formData = new FormData(form);
+    
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'X-CSRFToken':formData.get('csrfmiddlewaretoken')
+        },
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      const messageElement = document.getElementById('message');
+      if (data.success) {
+        messageElement.textContent = data.message;
+      } else {
+        messageElement.textContent = "Failed to add to cart";
+      }
+    })
+    .catch(error => {
+      console.error("Error", error)
+    });
+  });
+</script>
 {% endblock %}

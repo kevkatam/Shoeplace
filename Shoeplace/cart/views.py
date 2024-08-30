@@ -9,7 +9,7 @@ from django.http import JsonResponse
 @require_POST
 def cart_add(request, product_id):
     """ view to add a product to a cart """
-    cart_ide = request_session.get('cart_id')
+    cart_id = request.session.get('cart_id')
 
     if cart_id:
         try:
@@ -36,7 +36,13 @@ def cart_add(request, product_id):
 
     return JsonResponse(response_data)
 
+
 def cart_detail(request):
     """ view that shows the cart """
     cart_id = request.session.get('cart_id')
+    cart = None
 
+    if cart_id:
+        cart = get_object_or_404(Cart, id=cart_id)
+
+    return render(request, 'cart/detail.html', {"cart": cart})
