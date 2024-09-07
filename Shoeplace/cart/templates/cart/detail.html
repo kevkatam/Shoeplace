@@ -3,6 +3,31 @@
 {% block title %}My cart{% endblock %}
 
 {% block content %}
-  <h2>My cart</h2>
+  <h2 class="text-2xl font-semibold mb-4">My cart</h2>
+  {% if cart %}
+    <ul class="space-y-4">
+      {% for item in cart.items.all %}
+        <li class="flex items-center p-4">
+	  {% if item.product.image %}
+	    <img class="w-24" src="{{ item.product.image.url}}" alt="{{item.product.name}}">
+	  {% endif %}
+	  <div class="flex-grow">
+	      <a href="{% url 'products:product_detail' item.product.id item.product.slug %}">
+	    <h3 class="font-semibold text-lg">{{ item.product.name }}</h3>
+	      </a>
+	    <p class="text-gray-700">{{ item.product.description }}</p>
+	    <p class="text-indigo-600">Price: KES {{ item.product.price }}</p>
+	    <p class="text-gray-600">Quantity: {{ item.quantity }}</p>
+    <div class="flex-shrink">
+      <form action="" method="post">
+        {% csrf_token %}
+	<button class="bg-red-600 text-white px-4 py-2 rounded" type="submit">X</button>
+      </form>
+    </div>
+	  </div>
+	</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
 
 {% endblock %}
