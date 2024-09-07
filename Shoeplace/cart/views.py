@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from products.models import Product
 from .models import Cart, CartItem
 from django.views.decorators.http import require_POST
@@ -45,4 +45,17 @@ def cart_detail(request):
     if cart_id:
         cart = get_object_or_404(Cart, id=cart_id)
 
+    if not cart or not cart.items.exists():
+        cart=None
+
     return render(request, 'cart/detail.html', {"cart": cart})
+
+
+def cart_remove(request, product_id):
+    """ deletes an item from the cart """
+    cart_id = request.session.get('cart_id')
+    cart = get_object_or_404(Cart, id=cart_id)
+    item = get_object_or_404(CartItem, id=product_id, cart=cart)
+    item.delete()
+
+    return redirect("cart:cart_detail")

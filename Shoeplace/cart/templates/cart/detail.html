@@ -9,7 +9,7 @@
       {% for item in cart.items.all %}
         <li class="flex items-center p-4">
 	  {% if item.product.image %}
-	    <img class="w-24" src="{{ item.product.image.url}}" alt="{{item.product.name}}">
+	    <img class="w-24 mr-4" src="{{ item.product.image.url}}" alt="{{item.product.name}}">
 	  {% endif %}
 	  <div class="flex-grow">
 	      <a href="{% url 'products:product_detail' item.product.id item.product.slug %}">
@@ -19,15 +19,17 @@
 	    <p class="text-indigo-600">Price: KES {{ item.product.price }}</p>
 	    <p class="text-gray-600">Quantity: {{ item.quantity }}</p>
     <div class="flex-shrink">
-      <form action="" method="post">
+	    <form action="{% url 'cart:remove_item' item.id %}" method="post">
         {% csrf_token %}
-	<button class="bg-red-600 text-white px-4 py-2 rounded" type="submit">X</button>
+	<button class="bg-red-600 text-white px-4 py-1 text-xs rounded" type="submit">X</button>
       </form>
     </div>
 	  </div>
 	</li>
       {% endfor %}
     </ul>
+  {% else %}
+    <p>Your cart is empty.</p>
   {% endif %}
 
 {% endblock %}

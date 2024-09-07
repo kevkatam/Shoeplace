@@ -6,18 +6,18 @@
 <div class="container mx-auto p-4 flex">
   <div>
     {% if product.image %}
-    <img class="w-full h-auto max-w-xs mx-auto" src="{{ product.image.url }}"alt="{{ product.name }}">
+      <img class="w-32 h-32 sm:w-44 sm:h-44 md:w-48 md:h-48 object-cover" src="{{ product.image.url }}" alt="{{ product.name }}">
     {% else %}
     <p>The image is not available</p>
     {% endif %}
-    <h3 class="font-semibold">{{ product.name }}</h3>
-    <p>{{ product.description }}</p>
-    <p class="text-indigo-600">KES {{ product.price }}</p>
+    <h3 class="font-semibold text-lg mt-4">{{ product.name }}</h3>
+    <p class="text-sm text-gray-600">{{ product.description }}</p>
+    <p class="text-indigo-600 font-bold mt-2">KES {{ product.price }}</p>
 
     <form action="{% url 'cart:cart_add' product.id %}" method="post" id="add-to-cart-form">
       {% csrf_token %}
-      <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded">Add to cart</button>
-    <p id="message"></p>
+      <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Add to cart</button>
+    <p class="mt-2 text-sm text-green-500" id="message"></p>
     </form>
   </div>
 </div>
