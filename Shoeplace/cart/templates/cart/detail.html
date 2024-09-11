@@ -28,8 +28,12 @@
 	</li>
       {% endfor %}
     </ul>
+    <p><strong>Total Price: KES {{cart.get_total_price}}</strong></p>
   {% else %}
     <p>Your cart is empty.</p>
   {% endif %}
+  <form>
+    <button class="bg-indigo-600 text-white px-4 py-2 rounded mt-0.5">Proceed to Checkout</button>
+  </form>
 
 {% endblock %}
