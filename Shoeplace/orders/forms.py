@@ -2,7 +2,7 @@ from django import forms
 from .models import Order
 
 
-class CreateOrderForm(forms.ModelForm):
+class OrderCreateForm(forms.ModelForm):
     """ form for create order view """
     class Meta:
         model = Order
